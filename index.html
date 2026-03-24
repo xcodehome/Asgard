@@ -43,11 +43,11 @@
                 </div>
                 <div class="border-t pt-2">
                     <label class="text-xs font-bold text-gray-500 uppercase">Adresse</label>
-                    <p id="projet-adresse" class="text-gray-700 italic">---</p>
+                    <div id="projet-adresse" class="text-gray-700 italic">---</div>
                 </div>
                 <div class="border-t pt-2">
                     <label class="text-xs font-bold text-gray-500 uppercase">Desciption</label>
-                    <pre id="projet-description" class="text-gray-700 italic">---</pre>
+                    <p id="projet-description" class="text-gray-700 italic">---</p>
                 </div>
                 <div id="container-dynamique" class="border-t pt-2 space-y-2">
                     </div>
@@ -84,7 +84,7 @@
                 document.getElementById('projet-id').innerText = data.CodeSAP || "...";
                 document.getElementById('projet-nom').innerText = data.NameProject || "...";
                 document.getElementById('projet-adresse').innerText = data.MaitreOuvrageText || "Non renseignée";
-                document.getElementById('projet-description').innerText = data.CommentProject || "Non renseignée";
+                document.getElementById('projet-description').innerHTML = data.CommentProject || "Non renseignée";
                 document.getElementById('projet-photo').src = imgUrl;
 
                 // Ajouter d'autres champs si présents dans le JSON
