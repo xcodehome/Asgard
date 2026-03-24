@@ -27,6 +27,10 @@
                     <label class="text-xs font-bold text-gray-500 uppercase">Adresse</label>
                     <p id="projet-adresse" class="text-gray-700 italic">---</p>
                 </div>
+                <div class="border-t pt-2">
+                    <label class="text-xs font-bold text-gray-500 uppercase">Desciption</label>
+                    <p id="projet-desciption" class="text-gray-700 italic">---</p>
+                </div>
                 <div id="container-dynamique" class="border-t pt-2 space-y-2">
                     </div>
             </div>
@@ -59,9 +63,10 @@
                 const data = await response.json();
 
                 // 4. Injecter les données dans le HTML
-                document.getElementById('projet-id').innerText = id;
-                document.getElementById('projet-nom').innerText = data.NomProjet || "Sans nom";
+                document.getElementById('projet-id').innerText = data.CodeProjet || "...";
+                document.getElementById('projet-nom').innerText = data.NomProjet || "...";
                 document.getElementById('projet-adresse').innerText = data.Adresse || "Non renseignée";
+                document.getElementById('projet-description').innerText = data.Description || "Non renseignée";
                 document.getElementById('projet-photo').src = imgUrl;
 
                 // Ajouter d'autres champs si présents dans le JSON
