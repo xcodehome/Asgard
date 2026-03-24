@@ -81,10 +81,10 @@
                 const data = await response.json();
 
                 // 4. Injecter les données dans le HTML
-                document.getElementById('projet-id').innerText = data.CodeProjet || "...";
-                document.getElementById('projet-nom').innerText = data.NomProjet || "...";
-                document.getElementById('projet-adresse').innerText = data.Adresse || "Non renseignée";
-                document.getElementById('projet-description').innerText = data.Description || "Non renseignée";
+                document.getElementById('projet-id').innerText = data.CodeSAP || "...";
+                document.getElementById('projet-nom').innerText = data.NameProject || "...";
+                document.getElementById('projet-adresse').innerText = data.MaitreOuvrageText || "Non renseignée";
+                document.getElementById('projet-description').innerText = data.CommentProject || "Non renseignée";
                 document.getElementById('projet-photo').src = imgUrl;
 
                 // Ajouter d'autres champs si présents dans le JSON
