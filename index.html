@@ -6,6 +6,24 @@
     <title>Détail du Chantier</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
+<style>
+    @media print {
+        .no-print {
+            display: none !important;
+        }
+        /* Optionnel : Ajuster la marge pour l'impression */
+        body {
+            background-color: white !important;
+            padding: 0;
+        }
+        main {
+            box-shadow: none !important;
+            max-width: 100% !important;
+        }
+    }
+</style>
+    
 <body class="bg-gray-100 font-sans">
 
     <div id="loader" class="p-10 text-center">Chargement des données du chantier...</div>
@@ -36,7 +54,7 @@
             </div>
         </div>
         
-        <button onclick="window.print()" class="w-full bg-gray-800 text-white py-2 rounded shadow">Imprimer / PDF</button>
+        <button onclick="window.print()" class="no-print w-full bg-gray-800 text-white py-2 rounded shadow">Imprimer / PDF</button>
     </main>
 
     <script>
