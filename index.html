@@ -1,1 +1,83 @@
-<h1>Hello word</h1>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détail du Chantier</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div id="loader" class="p-10 text-center">Chargement des données du chantier...</div>
+
+    <main id="content" class="hidden p-4 max-w-lg mx-auto">
+        <div class="bg-white rounded-t-lg shadow-md overflow-hidden">
+            <img id="projet-photo" src="" alt="Photo du chantier" class="w-full h-48 object-cover bg-gray-200">
+        </div>
+
+        <div class="bg-white rounded-b-lg shadow-md p-6 mb-4">
+            <h1 id="projet-nom" class="text-2xl font-bold text-gray-800 mb-2 underline decoration-yellow-500">---</h1>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="text-xs font-bold text-gray-500 uppercase">Code Projet</label>
+                    <p id="projet-id" class="text-lg font-mono text-blue-600">---</p>
+                </div>
+                <div class="border-t pt-2">
+                    <label class="text-xs font-bold text-gray-500 uppercase">Adresse</label>
+                    <p id="projet-adresse" class="text-gray-700 italic">---</p>
+                </div>
+                <div id="container-dynamique" class="border-t pt-2 space-y-2">
+                    </div>
+            </div>
+        </div>
+        
+        <button onclick="window.print()" class="w-full bg-gray-800 text-white py-2 rounded shadow">Imprimer / PDF</button>
+    </main>
+
+    <script>
+        // 1. Récupérer l'ID dans l'URL (ex: ?IdProject=C2024-01)
+        const urlParams = new URLSearchParams(window.location.search);
+        const idProject = urlParams.get('IdProject');
+
+        if (!idProject) {
+            document.getElementById('loader').innerHTML = "❌ Aucun ID de projet spécifié.";
+        } else {
+            chargerDonnees(idProject);
+        }
+
+        async function chargerDonnees(id) {
+            try {
+                // 2. Définir les chemins des fichiers
+                const jsonUrl = `data/${id}.json`; // Dossier "data" pour les JSON
+                const imgUrl = `images/${id}.png`;
+
+                // 3. Charger le JSON
+                const response = await fetch(jsonUrl);
+                if (!response.ok) throw new Error("Projet introuvable");
+                
+                const data = await response.json();
+
+                // 4. Injecter les données dans le HTML
+                document.getElementById('projet-id').innerText = id;
+                document.getElementById('projet-nom').innerText = data.NomProjet || "Sans nom";
+                document.getElementById('projet-adresse').innerText = data.Adresse || "Non renseignée";
+                document.getElementById('projet-photo').src = imgUrl;
+
+                // Ajouter d'autres champs si présents dans le JSON
+                const container = document.getElementById('container-dynamique');
+                if(data.Details) {
+                    container.innerHTML = `<p class='text-sm text-gray-600'>${data.Details}</p>`;
+                }
+
+                // Afficher le contenu
+                document.getElementById('loader').classList.add('hidden');
+                document.getElementById('content').classList.remove('hidden');
+
+            } catch (error) {
+                document.getElementById('loader').innerHTML = `❌ Erreur : ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
