@@ -84,7 +84,7 @@
                 // 4. Injecter les données dans le HTML
                 document.getElementById('projet-id').innerText = data.CodeSAP || "...";
                 document.getElementById('projet-nom').innerText = data.NameProject || "...";
-                document.getElementById('projet-adresse').innerText = data.MaitreOuvrageText || "Non renseignée";
+                document.getElementById('projet-adresse').innerText = data.Address || "Non renseignée";
                 document.getElementById('projet-description').innerHTML = data.CommentProject || "Non renseignée";
                 document.getElementById('projet-photo').src = imgUrl;
 
