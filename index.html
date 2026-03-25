@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chantier Numérique - Bouygues</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f9; color: #333; padding: 20px; }
+        .card { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .label { font-size: 0.8rem; color: #0056b3; font-weight: bold; margin-top: 15px; text-transform: uppercase; }
+        canvas { display: block; margin-top: 5px; max-width: 100%; }
+        
+        /* Grille du Puzzle Photo */
+        #puzzle-container { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); /* 4 colonnes comme en VB */
+            gap: 1px; 
+            margin-top: 10px;
+            background: #eee;
+            line-height: 0;
+        }
+        .puzzle-piece { width: 100%; height: auto; display: block; }
+        #loader { text-align: center; padding: 50px; }
+    </style>
+</head>
+<body>
+
+<div id="loader">Chargement sécurisé du chantier...</div>
+
+<div id="main-content" class="card" style="display:none;">
+    <img src="https://upload.wikimedia.org/wikipedia/fr/a/af/Logo_Bouygues_Construction.svg" width="120" alt="Bouygues">
+    <hr>
+    
+    <div class="label">Nom du Projet</div>
+    <canvas id="cv-nom" width="460" height="40"></canvas>
+
+    <div class="label">Adresse</div>
+    <canvas id="cv-adresse" width="460" height="50"></canvas>
+
+    <div class="label">Description</div>
+    <canvas id="cv-desc" width="460" height="100"></canvas>
+
+    <div class="label">Dernière Mise à jour</div>
+    <canvas id="cv-date" width="460" height="30"></canvas>
+
+    <div class="label">Photos du Site</div>
+    <div id="puzzle-container"></div>
+</div>
+
+<script>
+    // CONFIGURATION (Doit correspondre à votre VB.NET)
+    const masterKey = "BOUYGUES_SECRET_2026"; 
+
+    async function init() {
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        const salt = window.location.hash.substring(1); // Récupère le sel après le #
+
+        if (!id || !salt) {
+            document.getElementById('loader').innerHTML = "⚠️ Accès non autorisé (ID/Clé manquant)";
+            return;
+        }
+
+        try {
+            // 1. Récupérer le JSON chiffré sur GitHub
+            const response = await fetch(`data/${id}.json`);
+            if (!response.ok) throw new Error("Fichier introuvable");
+            const encryptedData = await response.text();
+
+            // 2. Déchiffrement AES
+            // Note: CryptoJS utilise par défaut un sel interne s'il reçoit une string
+            // Pour une compatibilité parfaite avec Rfc2898DeriveBytes du VB, 
+            // on passe simplement la clé combinée.
+            const bytes = CryptoJS.AES.decrypt(encryptedData, masterKey + salt);
+            const decryptedText = bytes.toString(CryptoJS.enc.Utf8);
+            
+            if (!decryptedText) throw new Error("Échec du déchiffrement");
+
+            // 3. Parser l'objet DigitChantier
+            const chantier = JSON.parse(decryptedText);
+
+            // 4. Affichage dans les Canvas (Protection anti-scraping)
+            renderText("cv-nom", chantier.NomProjet, "bold 18px Arial", "#222");
+            renderText("cv-adresse", chantier.Adresse, "14px Arial", "#555");
+            renderText("cv-desc", chantier.Description, "14px Arial", "#444", true);
+            renderText("cv-date", chantier.DateMiseAJour, "italic 12px Arial", "#888");
+
+            // 5. Reconstruction du Puzzle Photo
+            const puzzle = document.getElementById('puzzle-container');
+            chantier.MorceauxPhotos.forEach(fileName => {
+                const img = document.createElement('img');
+                img.src = `data/images/${fileName}`; // Chemin vers vos GUID.jpg
+                img.className = 'puzzle-piece';
+                puzzle.appendChild(img);
+            });
+
+            // Afficher la carte
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+
+        } catch (e) {
+            console.error(e);
+            document.getElementById('loader').innerHTML = "❌ Erreur de lecture des données.";
+        }
+    }
+
+    // Fonction pour dessiner le texte sur Canvas
+    function renderText(id, text, font, color, isLongText = false) {
+        const c = document.getElementById(id);
+        const ctx = c.getContext("2d");
+        ctx.font = font;
+        ctx.fillStyle = color;
+        ctx.textBaseline = "top";
+        
+        if(isLongText) {
+            // Gestion sommaire du retour à la ligne pour la description
+            let words = text.split(' ');
+            let line = '';
+            let y = 0;
+            for(let n = 0; n < words.length; n++) {
+                let testLine = line + words[n] + ' ';
+                if (ctx.measureText(testLine).width > c.width && n > 0) {
+                    ctx.fillText(line, 0, y);
+                    line = words[n] + ' ';
+                    y += 20;
+                } else { line = testLine; }
+            }
+            ctx.fillText(line, 0, y);
+        } else {
+            ctx.fillText(text, 0, 10);
+        }
+    }
+
+    init();
+</script>
+
+</body>
+</html>
