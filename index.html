@@ -131,8 +131,52 @@ if (!decryptedText) throw new Error("Erreur : Données corrompues ou mauvaise cl
         }
     }
 
+    function renderText(id, text, fontSize, color, isLongText = false) {
+    const canvas = document.getElementById(id);
+    const ctx = canvas.getContext("2d");
+
+    // 1. Déterminer la densité de l'écran (ex: 2 pour iPhone, 3 pour écrans 4K)
+    const dpr = window.devicePixelRatio || 1;
+
+    // 2. Récupérer la taille d'affichage voulue (CSS)
+    const rect = canvas.getBoundingClientRect();
+
+    // 3. Redimensionner le buffer interne du canvas au ratio de l'écran
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+
+    // 4. On remet l'échelle du contexte à 1:1 pour dessiner normalement
+    ctx.scale(dpr, dpr);
+
+    // --- Configuration du texte ---
+    ctx.font = `${fontSize}px Arial`; // On passe la taille en paramètre
+    ctx.fillStyle = color;
+    ctx.textBaseline = "top";
+    
+    // Antialiasing forcé
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+
+    if(isLongText) {
+        let words = text.split(' ');
+        let line = '';
+        let y = 5;
+        for(let n = 0; n < words.length; n++) {
+            let testLine = line + words[n] + ' ';
+            if (ctx.measureText(testLine).width > rect.width && n > 0) {
+                ctx.fillText(line, 0, y);
+                line = words[n] + ' ';
+                y += fontSize * 1.3; // Interligne dynamique
+            } else { line = testLine; }
+        }
+        ctx.fillText(line, 0, y);
+    } else {
+        ctx.fillText(text, 0, 5);
+    }
+}
+
     // Fonction pour dessiner le texte sur Canvas
-    function renderText(id, text, font, color, isLongText = false) {
+    function renderText001(id, text, font, color, isLongText = false) {
         const c = document.getElementById(id);
         const ctx = c.getContext("2d");
         ctx.font = font;
