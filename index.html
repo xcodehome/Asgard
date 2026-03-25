@@ -68,7 +68,7 @@
             const response = await fetch(`Json/${id}.json`);
             if (!response.ok) throw new Error("Fichier introuvable");
             const encryptedData = await response.text();
-     alert(71)
+     //alert(71)
             // 2. Déchiffrement AES
             // Note: CryptoJS utilise par défaut un sel interne s'il reçoit une string
             // Pour une compatibilité parfaite avec Rfc2898DeriveBytes du VB, 
@@ -87,18 +87,18 @@ const decrypted = CryptoJS.AES.decrypt(encryptedData, key, {
     padding: CryptoJS.pad.Pkcs7
 });
 
-            alert(decrypted)
+            //alert(decrypted)
 
 const decryptedText = decrypted.toString(CryptoJS.enc.Utf8);
 if (!decryptedText) throw new Error("Erreur : Données corrompues ou mauvaise clé");
 
-            alert(decryptedText);
+            //alert(decryptedText);
 
             // 3. Parser l'objet DigitChantier
             const chantier = JSON.parse(decryptedText);
 
 
-            alert(chantier.NameProject);
+            //alert(chantier.NameProject);
             // 4. Affichage dans les Canvas (Protection anti-scraping)
             renderText("cv-nom", chantier.NameProject, "bold 18px Arial", "#222");
             renderText("cv-adresse", chantier.Address, "14px Arial", "#555");
