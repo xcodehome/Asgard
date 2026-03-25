@@ -119,10 +119,12 @@ if (!decryptedText) throw new Error("Erreur : Données corrompues ou mauvaise cl
             });
 
             // Afficher la carte
+    
+*/
+
             document.getElementById('loader').style.display = 'none';
             document.getElementById('main-content').style.display = 'block';
             document.getElementById('').src = imgUrl;
-*/
         } catch (e) {
             console.error(e);
             document.getElementById('loader').innerHTML = "❌ Erreur de lecture des données." + e;
