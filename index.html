@@ -68,18 +68,27 @@
             const response = await fetch(`Json/${id}.json`);
             if (!response.ok) throw new Error("Fichier introuvable");
             const encryptedData = await response.text();
-            alert(71);
+     
             // 2. Déchiffrement AES
             // Note: CryptoJS utilise par défaut un sel interne s'il reçoit une string
             // Pour une compatibilité parfaite avec Rfc2898DeriveBytes du VB, 
             // on passe simplement la clé combinée.
             const bytes = CryptoJS.AES.decrypt(encryptedData, masterKey + salt);
 
-            alert(78);
-            
-            const decryptedText = bytes.toString(CryptoJS.enc.Utf8);
-            
-            if (!decryptedText) throw new Error("Échec du déchiffrement");
+// On recrée la clé et l'IV de la même manière qu'en VB (MD5)
+const fullKey = masterKey + salt;
+const key = CryptoJS.MD5(fullKey);
+const iv = CryptoJS.MD5(fullKey + "iv");
+
+const decrypted = CryptoJS.AES.decrypt(encryptedData, key, {
+    iv: iv,
+    mode: CryptoJS.mode.CBC,
+    padding: CryptoJS.pad.Pkcs7
+});
+
+const decryptedText = decrypted.toString(CryptoJS.enc.Utf8);
+if (!decryptedText) throw new Error("Erreur : Données corrompues ou mauvaise clé");
+
 
             // 3. Parser l'objet DigitChantier
             const chantier = JSON.parse(decryptedText);
