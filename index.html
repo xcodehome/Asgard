@@ -68,7 +68,7 @@
             const response = await fetch(`Json/${id}.json`);
             if (!response.ok) throw new Error("Fichier introuvable");
             const encryptedData = await response.text();
-     
+     alert(71)
             // 2. Déchiffrement AES
             // Note: CryptoJS utilise par défaut un sel interne s'il reçoit une string
             // Pour une compatibilité parfaite avec Rfc2898DeriveBytes du VB, 
@@ -86,6 +86,8 @@ const decrypted = CryptoJS.AES.decrypt(encryptedData, key, {
     mode: CryptoJS.mode.CBC,
     padding: CryptoJS.pad.Pkcs7
 });
+
+            alert(90)
 
 const decryptedText = decrypted.toString(CryptoJS.enc.Utf8);
 if (!decryptedText) throw new Error("Erreur : Données corrompues ou mauvaise clé");
