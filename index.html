@@ -53,8 +53,8 @@
     const masterKey = "BOUYGUES_SECRET_2026"; 
 
     async function init() {
-        const params = new URLSearchParams(window.location.search);
-        const id = urlParams.get('IdProject');
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('Id');
         const salt = window.location.hash.substring(1); // Récupère le sel après le #
 
         if (!id || !salt) {
