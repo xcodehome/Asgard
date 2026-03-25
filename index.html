@@ -9,8 +9,14 @@
         body { font-family: 'Segoe UI', sans-serif; background: #f4f7f9; color: #333; padding: 20px; }
         .card { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         .label { font-size: 0.8rem; color: #0056b3; font-weight: bold; margin-top: 15px; text-transform: uppercase; }
-        canvas { display: block; margin-top: 5px; max-width: 100%; }
-        
+        /*canvas { display: block; margin-top: 5px; max-width: 100%; }*/
+        canvas {
+    display: block;
+    width: 100%;       /* Largeur visuelle fixe */
+    max-width: 460px;  /* Limite max */
+    height: auto;      /* Laisse le ratio se faire */
+    margin-bottom: 10px;
+}
         /* Grille du Puzzle Photo */
         #puzzle-container { 
             display: grid; 
@@ -100,9 +106,15 @@ if (!decryptedText) throw new Error("Erreur : Données corrompues ou mauvaise cl
 
             //alert(chantier.NameProject);
             // 4. Affichage dans les Canvas (Protection anti-scraping)
+            /*
             renderText("cv-nom", chantier.NameProject, "bold 18px Arial", "#222");
             renderText("cv-adresse", chantier.Address, "14px Arial", "#555");
             renderText("cv-desc", chantier.CommentProject, "14px Arial", "#444", true);
+            */
+            // Au lieu de "bold 18px Arial", on passe juste la taille numérique
+renderText("cv-nom", chantier.NameProject, 20, "#222"); // 20px
+renderText("cv-adresse", chantier.Address, 15, "#555"); // 15px
+renderText("cv-desc", chantier.CommentProject, 14, "#444", true);
             //alert(chantier.Address);
             
 /*
