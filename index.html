@@ -65,10 +65,10 @@
 
         try {
             // 1. Récupérer le JSON chiffré sur GitHub
-            const response = await fetch(`data/${id}.json`);
+            const response = await fetch(`Json/${id}.json`);
             if (!response.ok) throw new Error("Fichier introuvable");
             const encryptedData = await response.text();
-alert(71);
+            alert(71);
             // 2. Déchiffrement AES
             // Note: CryptoJS utilise par défaut un sel interne s'il reçoit une string
             // Pour une compatibilité parfaite avec Rfc2898DeriveBytes du VB, 
