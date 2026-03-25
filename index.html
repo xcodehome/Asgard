@@ -81,11 +81,14 @@
             // 3. Parser l'objet DigitChantier
             const chantier = JSON.parse(decryptedText);
 
+
+            alert(chantier.NameProject);
             // 4. Affichage dans les Canvas (Protection anti-scraping)
             renderText("cv-nom", chantier.NameProject, "bold 18px Arial", "#222");
             renderText("cv-adresse", chantier.Address, "14px Arial", "#555");
             renderText("cv-desc", chantier.CommentProject, "14px Arial", "#444", true);
-
+            alert(chantier.Address);
+            
 /*
             
             renderText("cv-date", chantier.DateMiseAJour, "italic 12px Arial", "#888");
