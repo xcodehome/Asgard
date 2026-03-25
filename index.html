@@ -73,7 +73,8 @@
             // Note: CryptoJS utilise par défaut un sel interne s'il reçoit une string
             // Pour une compatibilité parfaite avec Rfc2898DeriveBytes du VB, 
             // on passe simplement la clé combinée.
-            const bytes = CryptoJS.AES.decrypt(encryptedData, masterKey + salt);
+            
+            //const bytes = CryptoJS.AES.decrypt(encryptedData, masterKey + salt);
 
 // On recrée la clé et l'IV de la même manière qu'en VB (MD5)
 const fullKey = masterKey + salt;
