@@ -58,6 +58,7 @@
         const salt = window.location.hash.substring(1); // Récupère le sel après le #
 
         if (!id || !salt) {
+            alert(id + "---" + salt);
             document.getElementById('loader').innerHTML = "⚠️ Accès non autorisé (ID/Clé manquant)";
             return;
         }
