@@ -86,7 +86,7 @@
             renderText("cv-adresse", chantier.Adresse, "14px Arial", "#555");
             renderText("cv-desc", chantier.Description, "14px Arial", "#444", true);
             renderText("cv-date", chantier.DateMiseAJour, "italic 12px Arial", "#888");
-
+/*
             // 5. Reconstruction du Puzzle Photo
             const puzzle = document.getElementById('puzzle-container');
             chantier.MorceauxPhotos.forEach(fileName => {
@@ -99,7 +99,8 @@
             // Afficher la carte
             document.getElementById('loader').style.display = 'none';
             document.getElementById('main-content').style.display = 'block';
-
+            document.getElementById('').src = imgUrl;
+*/
         } catch (e) {
             console.error(e);
             document.getElementById('loader').innerHTML = "❌ Erreur de lecture des données.";
