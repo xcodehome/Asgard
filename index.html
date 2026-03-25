@@ -82,11 +82,14 @@
             const chantier = JSON.parse(decryptedText);
 
             // 4. Affichage dans les Canvas (Protection anti-scraping)
-            renderText("cv-nom", chantier.NomProjet, "bold 18px Arial", "#222");
-            renderText("cv-adresse", chantier.Adresse, "14px Arial", "#555");
-            renderText("cv-desc", chantier.Description, "14px Arial", "#444", true);
-            renderText("cv-date", chantier.DateMiseAJour, "italic 12px Arial", "#888");
+            renderText("cv-nom", chantier.NameProject, "bold 18px Arial", "#222");
+            renderText("cv-adresse", chantier.Address, "14px Arial", "#555");
+            renderText("cv-desc", chantier.CommentProject, "14px Arial", "#444", true);
+
 /*
+            
+            renderText("cv-date", chantier.DateMiseAJour, "italic 12px Arial", "#888");
+
             // 5. Reconstruction du Puzzle Photo
             const puzzle = document.getElementById('puzzle-container');
             chantier.MorceauxPhotos.forEach(fileName => {
