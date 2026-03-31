@@ -61,8 +61,9 @@
     <script>
         // 1. Récupérer l'ID dans l'URL (ex: ?IdProject=C2024-01)
         const urlParams = new URLSearchParams(window.location.search);
-        const idProject = urlParams.get('IdProject');
-
+        const hashParam = window.location.hash.substring(1); // Récupère le sel après le #
+        const idProject = hashParam.substring(0, 6);
+        
         if (!idProject) {
             document.getElementById('loader').innerHTML = "❌ Aucun ID de projet spécifié.";
         } else {
