@@ -74,8 +74,13 @@
   async function chargerChantier() {
    const params = new URLSearchParams(window.location.search);
    const hashParam = window.location.hash.substring(1);
-   const id = hashParam.substring(0, 6); // Récupère le nom du fichier (ex: PRJ-782)
-   const salt = hashParam.substring(6); // Le sel après le #
+   var id = ""; // Récupère le nom du fichier (ex: PRJ-782)
+   var salt = ""; // Le sel après le #
+
+   for (let i = 0; i < hashParam.length / 2; i++) {
+    id += hashParam.substring(i * 2, i * 2 + 1);
+    salt += hashParam.substring(i * 2 + 1, i * 2 + 2);
+   }
 
    if (!id || !salt) {
     document.getElementById('loader').innerHTML = "Lien invalide.";
