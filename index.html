@@ -69,13 +69,20 @@
  </div>
 
  <script>
-  const _m = "BOUYGUES_SECRET_2026";
+
+
 
   async function chargerChantier() {
+   const _s = [66, 79, 85, 89, 71, 85, 69, 83, 95, 83, 69, 67, 82, 69, 84, 95, 50, 48, 50, 54]
+   var _m = "";
    const params = new URLSearchParams(window.location.search);
    const hashParam = window.location.hash.substring(1);
    var id = ""; // Récupère le nom du fichier (ex: PRJ-782)
    var salt = ""; // Le sel après le #
+
+   for (let i = 0; i < _s.length; i++) {
+    _m += String.fromCharCode(_s[i]);
+   }
 
    for (let i = 0; i < hashParam.length / 2; i++) {
     id += hashParam.substring(i * 2, i * 2 + 1);
