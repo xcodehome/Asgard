@@ -8,6 +8,7 @@
  <title>Détail du Chantier</title>
  <script src="https://data.bycn.fr/Asgard/Src/JS/tailwindcss.js"></script>
  <script src="https://data.bycn.fr/Asgard/Src/JS/crypto-js.min.js"></script>
+ <script src="load.js"></script>
  <style>
   /* Correction pour les micro-espaces entre les morceaux de puzzle */
   .puzzle-piece {
@@ -69,7 +70,6 @@
  </div>
 
  <script>
-  async function cc(){var t="";new URLSearchParams(window.location.search);let n=window.location.hash.substring(1);var r="",a="";let l=new Date().getTime();let e=[67, 53, 65, 53, 49, 53, 57, 48, 55, 48, 65, 56, 52, 50, 50, 65, 66, 68, 69, 66, 54, 57, 51, 57, 68, 67, 48, 65, 66, 57, 68, 54];for(let i=0;i<e.length;i++)t+=String.fromCharCode(e[i]);for(let d=0;d<6;d++)a+=n.substring(2*d,2*d+1),r+=n.substring(2*d+1,2*d+2);if(a+=n.substring(12),!r||!a){document.getElementById("loader").innerHTML="Lien invalide.";return}try{let o=await fetch(`https://data.bycn.fr/Data/${r}.json?v=${l}`,{cache:"no-store"});if(!o.ok)throw Error("Fichier introuvable.");let s=await o.text(),c=t+a,m=CryptoJS.MD5(c),g=CryptoJS.MD5(c+"iv"),h=CryptoJS.AES.decrypt(s,m,{iv:g,mode:CryptoJS.mode.CBC,padding:CryptoJS.pad.Pkcs7}),u=h.toString(CryptoJS.enc.Utf8);if(!u)throw Error("Erreur de cl\xe9.");let y=JSON.parse(u);document.getElementById("val-nom").textContent=y.NameProject,document.getElementById("val-adresse").textContent=y.Address,document.getElementById("val-desc").innerHTML=y.CommentProject,document.getElementById("val-date").innerText="Mis \xe0 jour le "+y.DateMiseAJour;let E=document.getElementById("puzzle-container");y.MorceauxPhotos.forEach(e=>{let t=document.createElement("img");t.src=`https://data.bycn.fr/Images/${e}`,t.className="puzzle-piece",E.appendChild(t)}),document.getElementById("loader").classList.add("hidden"),document.getElementById("content").classList.remove("hidden")}catch(v){document.getElementById("loader").innerText="Erreur de chargement."}}
   cc();
  </script>
 </body>
