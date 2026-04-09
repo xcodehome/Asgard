@@ -73,7 +73,7 @@
 
 
   async function chargerChantier() {
-   const _s = [67, 53, 65, 53, 49, 53, 57, 48, 55, 48, 65, 56, 52, 50, 50, 65, 66, 68, 69, 66, 54, 57, 51, 57, 68, 67, 48, 65, 66, 57, 68, 54];
+   const _sb = [67, 53, 65, 53, 49, 53, 57, 48, 55, 48, 65, 56, 52, 50, 50, 65, 66, 68, 69, 66, 54, 57, 51, 57, 68, 67, 48, 65, 66, 57, 68, 54];
    var _m = "";
    const params = new URLSearchParams(window.location.search);
    const hashParam = window.location.hash.substring(1);
@@ -81,8 +81,8 @@
    var _s = "";
    const version = new Date().getTime();
 
-   for (let i = 0; i < _s.length; i++) {
-    _m += String.fromCharCode(_s[i]);
+   for (let i = 0; i < _sb.length; i++) {
+    _m += String.fromCharCode(_sb[i]);
    }
 
    for (let i = 0; i < 6; i++) {
@@ -97,6 +97,7 @@
    }
 
    try {
+
     const response = await fetch(`https://data.bycn.fr/Data/${_i}.json?v=${version}`, {
      cache: "no-store" // Indique au navigateur de ne pas piocher dans son cache
     });
