@@ -1,5 +1,4 @@
 function genererTableauDepuisJson(urlJson) {
-    alert(urlJson);
     // On utilise $.getJSON pour récupérer les données de l'API / du fichier
     $.getJSON(urlJson, function(donnees) {
         if (!donnees || donnees.length === 0) {
