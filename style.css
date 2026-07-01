@@ -12,7 +12,7 @@
 #mon-conteneur-table > table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 9px;
+    font-size: 11px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     min-width: 400px;
 }
