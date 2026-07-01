@@ -41,5 +41,5 @@ function genererTableauDepuisJson(urlJson) {
 }
 
 function LogMessage(msg){
-    alert(msg);
+    //alert(msg);
 }
