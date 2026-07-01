@@ -1,5 +1,5 @@
 /* 1. Le conteneur qui fixe la hauteur et gère le scroll */
-#mon-conteneur-table {
+#AAAAAmon-conteneur-table {
     /* Prend toute la hauteur de la fenêtre moins une petite marge (ex: pour un titre ou padding) */
     max-height: calc(100vh - 60px); 
     overflow-y: auto; /* Active le scroll vertical uniquement si nécessaire */
@@ -26,12 +26,12 @@
     z-index: 1; /* Reste au-dessus des lignes du corps */
     text-align: left;
     font-weight: bold;
-    padding: 12px 15px;
+    padding: 2px 5px;
 }
 
 /* 4. Style des cellules du corps */
 #mon-conteneur-table > table td {
-    padding: 12px 15px;
+    padding: 2px 5px;
 }
 
 /* Alternance de couleurs (effet zèbre) */
