@@ -37,7 +37,7 @@ function genererTableauDepuisJson(urlJson) {
                     });
                     
                     // 3. On rassemble les lignes propres en les séparant par un <br>
-                    valeur = lignesNettoyees.join("<br>");
+                    valeur = lignesNettoyees.join("<hr>");
                 }
                 
                 htmlCellules = htmlCellules + "<td>" + valeur + "</td>";
