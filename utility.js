@@ -1,4 +1,49 @@
+
 function genererTableauDepuisJson(urlJson) {
+    $.getJSON(urlJson, function(donnees) {
+        if (!donnees || donnees.length === 0) {
+            LogMessage("Le JSON est vide ou invalide.");
+            return;
+        }
+
+        var colonnes = Object.keys(donnees[0]);
+        
+        var htmlLigneEntete = "";
+        $.each(colonnes, function(index, cle) {
+            htmlLigneEntete = htmlLigneEntete + "<th>" + cle + "</th>";
+        });
+        var htmlThead = "<thead><tr>" + htmlLigneEntete + "</tr></thead>";
+
+        var htmlLignesCorps = "";
+        $.each(donnees, function(index, element) {
+            var htmlCellules = "";
+            $.each(colonnes, function(i, cle) {
+                var valeur = element[cle] !== null ? element[cle] : "";
+                
+                // AJUSTEMENT ICI : Si la valeur est une chaîne de caractères, on remplace les \n par <br>
+                if (typeof valeur === "string") {
+                    valeur = valeur.replace(/\n/g, "<br>");
+                }
+                
+                htmlCellules = htmlCellules + "<td>" + valeur + "</td>";
+            });
+            htmlLignesCorps = htmlLignesCorps + "<tr>" + htmlCellules + "</tr>";
+        });
+        var htmlTbody = "<tbody>" + htmlLignesCorps + "</tbody>";
+
+        var htmlTableComplete = "<table>" + htmlThead + htmlTbody + "</table>";
+
+        // Insertion dans le conteneur mis en place pour le scroll
+        $(".table-container").html(htmlTableComplete);
+        
+        LogMessage("Tableau HTML généré avec succès (gestion des retours à la ligne incluse).");
+    }).fail(function() {
+        LogMessage("Erreur lors de la récupération du JSON.");
+    });
+}
+
+
+function genererTableauDepuisJsonOld(urlJson) {
     // On utilise $.getJSON pour récupérer les données de l'API / du fichier
     $.getJSON(urlJson, function(donnees) {
         if (!donnees || donnees.length === 0) {
