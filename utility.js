@@ -39,3 +39,7 @@ function genererTableauDepuisJson(urlJson) {
         LogMessage("Erreur lors de la récupération du JSON.");
     });
 }
+
+function LogMessage(msg){
+    alert(msg);
+}
