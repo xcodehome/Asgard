@@ -1,5 +1,5 @@
 /* 1. Le conteneur qui fixe la hauteur et gère le scroll */
-.table-container {
+#mon-conteneur-table {
     /* Prend toute la hauteur de la fenêtre moins une petite marge (ex: pour un titre ou padding) */
     max-height: calc(100vh - 60px); 
     overflow-y: auto; /* Active le scroll vertical uniquement si nécessaire */
@@ -9,7 +9,7 @@
 }
 
 /* 2. Style général du tableau (on retire l'ombrage d'ici) */
-.table-container > table {
+#mon-conteneur-table > table {
     width: 100%;
     border-collapse: collapse;
     font-size: 9px;
@@ -18,7 +18,7 @@
 }
 
 /* 3. Figer l'en-tête (Sticky Header) */
-.table-container > table thead th {
+#mon-conteneur-table > table thead th {
     position: sticky;
     top: 0;
     background-color: #009879; /* La couleur de fond est obligatoire pour masquer le texte qui défile dessous */
@@ -30,22 +30,22 @@
 }
 
 /* 4. Style des cellules du corps */
-.table-container > table td {
+#mon-conteneur-table > table td {
     padding: 12px 15px;
 }
 
 /* Alternance de couleurs (effet zèbre) */
-.table-container > table tbody tr {
+#mon-conteneur-table > table tbody tr {
     border-bottom: 1px solid #dddddd;
     background-color: #f3f3f3;
 }
 
-.table-container > table tbody tr:nth-of-type(even) {
+#mon-conteneur-table > table tbody tr:nth-of-type(even) {
     background-color: #ffffff;
 }
 
 /* Effet de survol */
-.table-container > table tbody tr:hover {
+#mon-conteneur-table > table tbody tr:hover {
     background-color: #f1f1f1;
     cursor: pointer;
 }
