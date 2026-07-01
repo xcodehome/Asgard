@@ -9,7 +9,7 @@
 }
 
 /* 2. Style général du tableau (on retire l'ombrage d'ici) */
-table {
+.table-container > table {
     width: 100%;
     border-collapse: collapse;
     font-size: 9px;
@@ -18,7 +18,7 @@ table {
 }
 
 /* 3. Figer l'en-tête (Sticky Header) */
-table thead th {
+.table-container > table thead th {
     position: sticky;
     top: 0;
     background-color: #009879; /* La couleur de fond est obligatoire pour masquer le texte qui défile dessous */
@@ -30,22 +30,22 @@ table thead th {
 }
 
 /* 4. Style des cellules du corps */
-table td {
+.table-container > table td {
     padding: 12px 15px;
 }
 
 /* Alternance de couleurs (effet zèbre) */
-table tbody tr {
+.table-container > table tbody tr {
     border-bottom: 1px solid #dddddd;
     background-color: #f3f3f3;
 }
 
-table tbody tr:nth-of-type(even) {
+.table-container > table tbody tr:nth-of-type(even) {
     background-color: #ffffff;
 }
 
 /* Effet de survol */
-table tbody tr:hover {
+.table-container > table tbody tr:hover {
     background-color: #f1f1f1;
     cursor: pointer;
 }
