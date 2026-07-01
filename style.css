@@ -1,31 +1,40 @@
-/* Style général du tableau */
+/* 1. Le conteneur qui fixe la hauteur et gère le scroll */
+.table-container {
+    /* Prend toute la hauteur de la fenêtre moins une petite marge (ex: pour un titre ou padding) */
+    max-height: calc(100vh - 60px); 
+    overflow-y: auto; /* Active le scroll vertical uniquement si nécessaire */
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    margin: 20px 0;
+}
+
+/* 2. Style général du tableau (on retire l'ombrage d'ici) */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 25px 0;
-    font-size: 8px;
+    font-size: 9px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     min-width: 400px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    border-radius: 8px 8px 0 0;
-    overflow: hidden;
 }
 
-/* Style de l'en-tête (thead) */
-table thead tr {
-    background-color: #009879;
+/* 3. Figer l'en-tête (Sticky Header) */
+table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #009879; /* La couleur de fond est obligatoire pour masquer le texte qui défile dessous */
     color: #ffffff;
+    z-index: 1; /* Reste au-dessus des lignes du corps */
     text-align: left;
     font-weight: bold;
+    padding: 12px 15px;
 }
 
-/* Style des cellules d'en-tête et du corps */
-table th, 
+/* 4. Style des cellules du corps */
 table td {
     padding: 12px 15px;
 }
 
-/* Alternance de couleurs pour les lignes (effet zèbre) */
+/* Alternance de couleurs (effet zèbre) */
 table tbody tr {
     border-bottom: 1px solid #dddddd;
     background-color: #f3f3f3;
@@ -35,12 +44,7 @@ table tbody tr:nth-of-type(even) {
     background-color: #ffffff;
 }
 
-/* Effet visuel sur la dernière ligne */
-table tbody tr:last-of-type {
-    border-bottom: 2px solid #009879;
-}
-
-/* Effet de survol (Hover) pour une meilleure lisibilité */
+/* Effet de survol */
 table tbody tr:hover {
     background-color: #f1f1f1;
     cursor: pointer;
