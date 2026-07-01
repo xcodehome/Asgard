@@ -20,9 +20,24 @@ function genererTableauDepuisJson(urlJson) {
             $.each(colonnes, function(i, cle) {
                 var valeur = element[cle] !== null ? element[cle] : "";
                 
-                // AJUSTEMENT ICI : Si la valeur est une chaîne de caractères, on remplace les \n par <br>
                 if (typeof valeur === "string") {
-                    valeur = valeur.replace(/\n/g, "<br>");
+                    // 1. On sépare le texte à chaque retour à la ligne
+                    var lignes = valeur.split("\n");
+                    
+                    // 2. On nettoie les espaces inutiles au début et à la fin de chaque ligne
+                    var lignesNettoyees = [];
+                    $.each(lignes, function(idx, ligne) {
+                        // .trim() retire les espaces classiques et les espaces insécables normaux
+                        var lignePropre = ligne.trim();
+                        
+                        // Si la ligne n'est pas complètement vide, on la garde
+                        if (lignePropre !== "") {
+                            lignesNettoyees.push(lignePropre);
+                        }
+                    });
+                    
+                    // 3. On rassemble les lignes propres en les séparant par un <br>
+                    valeur = lignesNettoyees.join("<br>");
                 }
                 
                 htmlCellules = htmlCellules + "<td>" + valeur + "</td>";
@@ -33,10 +48,9 @@ function genererTableauDepuisJson(urlJson) {
 
         var htmlTableComplete = "<table>" + htmlThead + htmlTbody + "</table>";
 
-        // Insertion dans le conteneur mis en place pour le scroll
         $(".table-container").html(htmlTableComplete);
         
-        LogMessage("Tableau HTML généré avec succès (gestion des retours à la ligne incluse).");
+        LogMessage("Tableau HTML généré avec nettoyage des espaces et retours à la ligne.");
     }).fail(function() {
         LogMessage("Erreur lors de la récupération du JSON.");
     });
