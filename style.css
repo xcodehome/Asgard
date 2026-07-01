@@ -5,7 +5,7 @@
     overflow-y: auto; /* Active le scroll vertical uniquement si nécessaire */
     border-radius: 8px 8px 0 0;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    margin: 20px 0;
+    margin: 5px 0;
 }
 
 /* 2. Style général du tableau (on retire l'ombrage d'ici) */
